@@ -8,42 +8,115 @@
 
 import UIKit
 
-class HomePageViewController: UIViewController {
+extension Date {
+    
+    var dayofTheWeek: String {
+        let dayNumber = Calendar.current.component(.weekday, from: self)
+        // day number starts from 1 but array count from 0
+        return daysOfTheWeek[dayNumber - 1]
+    }
+    
+    private var daysOfTheWeek: [String] {
+        return  ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    }
+}
 
+class HomePageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let t = self.result2 {
+            return t.list.count
+        } else {
+            return 0
+        }
+    }
+    
+    
+    @IBOutlet weak var weatherType: UILabel!
     @IBOutlet weak var dateValue: UILabel!
     @IBOutlet weak var cityName: UILabel!
     @IBOutlet weak var weatherValue: UILabel!
-    @IBOutlet weak var weatherIcon: UIImageView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    var result : CurrentWeatherForecastResponse!
+    @IBOutlet weak var tableView: UITableView!
+    var result1 : CurrentWeatherForecastResponse!
+    var result2 : WeeklyForecastResponse!
+    var viewModel: HomePageViewModel!
+    
+    fileprivate func setupTableView() {
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.register(UINib(nibName: "HomePageTableViewCell", bundle: nil), forCellReuseIdentifier: "Cell")
+    }
+    
+    func resetValues() {
+        self.weatherType.text = ""
+        self.dateValue.text = ""
+        self.cityName.text = ""
+        self.weatherValue.text = ""
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let components = APIService.shared.setupComponents(endpoint: .weather, city: "Beirut")
-        let request = APIService.shared.setupURL(components: components) as! URLRequest
-        APIService.shared.GET(urlRequest: request) {  (result: Result<CurrentWeatherForecastResponse, APIService.APIError>) in
-            switch result {
-            case let .success(response):
-                self.setupValues(response: response)
-                print(response)
-            case .failure(_):
-                break
+        self.resetValues()
+        self.setupTableView()
+//        self.activityIndicator.transform = CGAffineTransform(scaleX: 3, y: 3)
+        self.viewModel = HomePageViewModel()
+        viewModel.fetchCurrentWeather { (isDone) in
+            if let error1 = self.viewModel.currentWeatherRespose.1 {
+                
+                
+            } else {
+                self.result1 = self.viewModel.currentWeatherRespose.0
+                self.setupValues()
+            }
+            
+        }
+        
+        viewModel.fetchForecastedWeather() { (isDone) in
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+                self.activityIndicator.isHidden = true
+            }
+            
+            if let error2 = self.viewModel.WeeklyForecastResponse.1 {
+                
+            } else {
+                self.result2 = self.viewModel.WeeklyForecastResponse.0
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+                
             }
         }
-        // Do any additional setup after loading the view.
+        
     }
-
-
-    func setupValues(response: CurrentWeatherForecastResponse) {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 150
+    }
+    func setupValues() {
         DispatchQueue.main.async {
             self.cityName.text = "Beirut"
             let df = DateFormatter()
-            df.dateFormat = "yyyy-MM-dd hh:mm:ss"
+            df.dateFormat = "EEEE, MMM dd"
             let now = df.string(from: Date())
+            self.weatherType.text = "Humidity" + "\(self.result1.main.humidity)"
             self.dateValue.text = now
-            self.weatherValue.text = "\(Int(response.main.temperature))"
+            self.weatherValue.text = "\(Int(self.result1.main.temperature))"
         }
-
+        
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? HomePageTableViewCell else { return UITableViewCell() }
+        let list = self.result2.list
+        let item = list[indexPath.row]
+        cell.weather.text = "\(Int(item.main.temp))"
+        cell.weatherType.text = item.weather.first?.weatherDescription
+        let df = DateFormatter()
+        df.dateFormat = "EEEE, MMM dd"
+        cell.day.text = df.string(from: item.date)
+        return cell
     }
 }
 

@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Combine
 
 // MARK: - ErrorContainer
 struct ErrorContainer: Codable {
@@ -21,6 +20,7 @@ struct ErrorContainerData: Codable {
 
 // MARK: - WeatherAPI
 struct WeatherAPI {
+    //add constant file
    static let scheme = "https"
    static let host = "api.openweathermap.org"
    static let path = "/data/2.5"
@@ -29,17 +29,8 @@ struct WeatherAPI {
 
 
 struct APIService {
-    let baseURL = URL(string: "api.openweathermap.org")!
-    let apiKey = ""
     static let shared = APIService()
     let decoder = JSONDecoder()
-    
-    enum APIError: Error {
-        case unauthenticated
-        case noResponse
-        case jsonDecodingError(error: Error)
-        case networkError(error: Error)
-    }
     
     enum Endpoint {
         case weather
@@ -54,14 +45,18 @@ struct APIService {
         }
     }
     
-    func setupComponents(endpoint: Endpoint, city: String) -> URLComponents {
+    func setupRequest(location: String, endoint: Endpoint) -> URLRequest {
+        let components = self.setupComponents(endpoint: endoint, location: location)
+        return self.setupURL(components: components) as! URLRequest
+    }
+    func setupComponents(endpoint: Endpoint, location: String) -> URLComponents {
         var components = URLComponents()
         components.scheme = WeatherAPI.scheme
         components.host = WeatherAPI.host
         components.path = WeatherAPI.path + endpoint.path()
         
         components.queryItems = [
-          URLQueryItem(name: "q", value: city),
+          URLQueryItem(name: "q", value: location),
           URLQueryItem(name: "mode", value: "json"),
           URLQueryItem(name: "units", value: "metric"),
           URLQueryItem(name: "APPID", value: WeatherAPI.key)

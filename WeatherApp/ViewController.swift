@@ -12,7 +12,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        APICalls.fetchWeather()
+//        APICalls.fetchWeather()
         // Do any additional setup after loading the view.
     }
 

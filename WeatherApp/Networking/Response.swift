@@ -8,6 +8,36 @@
 
 import Foundation
 
+//fi min mw max
+struct WeeklyResponse: Codable {
+    let list: [Item]
+
+    struct Item: Codable {
+        let weather: [Weather]
+        let temp: Temp
+    }
+
+    struct Temp: Codable {
+        let day: Double
+        let max: Double
+        let min: Double
+    }
+    struct Weather: Codable {
+      let main: MainEnum
+      let weatherDescription: String
+
+      enum CodingKeys: String, CodingKey {
+        case main
+        case weatherDescription = "description"
+      }
+    }
+
+    enum MainEnum: String, Codable {
+      case clear = "Clear"
+      case clouds = "Clouds"
+      case rain = "Rain"
+    }
+}
 struct WeeklyForecastResponse: Codable {
   let list: [Item]
   

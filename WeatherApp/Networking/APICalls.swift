@@ -10,28 +10,26 @@ import Foundation
 
 struct APICalls {
     
-    static func fetchWeather() {
-        let components = APIService.shared.setupComponents(endpoint: .weather, city: "Beirut")
-        let request = APIService.shared.setupURL(components: components) as! URLRequest
-        APIService.shared.GET(urlRequest: request) {  (result: Result<CurrentWeatherForecastResponse, APIService.APIError>) in
+    static func fetchWeather(location: String, completionHandler: @escaping (CurrentWeatherForecastResponse?, APIError?) -> Void) {
+        let request = APIService.shared.setupRequest(location: location, endoint: .weather)
+        APIService.shared.GET(urlRequest: request) { (result: Result<CurrentWeatherForecastResponse, APIError>) in
             switch result {
             case let .success(response):
-                print(response)
-            case .failure(_):
-                break
+                completionHandler(response,nil)
+            case let .failure(error):
+                completionHandler(nil,error)
             }
         }
     }
     
-    static func fetchForecast() {
-       let components = APIService.shared.setupComponents(endpoint: .forecast, city: "Beirut")
-        let request = APIService.shared.setupURL(components: components) as! URLRequest
-        APIService.shared.GET(urlRequest: request) {  (result: Result<WeeklyForecastResponse, APIService.APIError>) in
+    static func fetchForecast(location: String, completionHandler: @escaping (WeeklyForecastResponse?, APIError?) -> Void) {
+        let request = APIService.shared.setupRequest(location: location, endoint: .forecast)
+        APIService.shared.GET(urlRequest: request) { (result: Result<WeeklyForecastResponse, APIError>) in
             switch result {
             case let .success(response):
-                print(response)
-            case .failure(_):
-                break
+                completionHandler(response,nil)
+            case let .failure(error):
+                completionHandler(nil,error)
             }
         }
     }

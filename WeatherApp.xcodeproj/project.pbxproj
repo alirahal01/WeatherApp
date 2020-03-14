@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		154B252D241AC58E0044D43E /* HomePageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154B252B241AC58E0044D43E /* HomePageTableViewCell.swift */; };
+		154B252E241AC58E0044D43E /* HomePageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 154B252C241AC58E0044D43E /* HomePageTableViewCell.xib */; };
+		154B2530241BC4360044D43E /* HomePageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154B252F241BC4360044D43E /* HomePageViewModel.swift */; };
+		154B2533241BF7960044D43E /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154B2532241BF7960044D43E /* APIError.swift */; };
 		15A90D6C2413D3D500AAFD7E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A90D6B2413D3D500AAFD7E /* AppDelegate.swift */; };
 		15A90D6E2413D3D500AAFD7E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A90D6D2413D3D500AAFD7E /* SceneDelegate.swift */; };
 		15A90D702413D3D500AAFD7E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A90D6F2413D3D500AAFD7E /* ViewController.swift */; };
@@ -41,6 +45,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		154B252B241AC58E0044D43E /* HomePageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageTableViewCell.swift; sourceTree = "<group>"; };
+		154B252C241AC58E0044D43E /* HomePageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomePageTableViewCell.xib; sourceTree = "<group>"; };
+		154B252F241BC4360044D43E /* HomePageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageViewModel.swift; sourceTree = "<group>"; };
+		154B2532241BF7960044D43E /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		15A90D682413D3D500AAFD7E /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15A90D6B2413D3D500AAFD7E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		15A90D6D2413D3D500AAFD7E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -150,6 +158,7 @@
 				15A90D9F2413E38900AAFD7E /* APIService.swift */,
 				15A90DA12413E53500AAFD7E /* APICalls.swift */,
 				15A90DA52413F78600AAFD7E /* Response.swift */,
+				154B2532241BF7960044D43E /* APIError.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -158,6 +167,9 @@
 			isa = PBXGroup;
 			children = (
 				15A90DAB241580BF00AAFD7E /* HomePageViewController.swift */,
+				154B252B241AC58E0044D43E /* HomePageTableViewCell.swift */,
+				154B252C241AC58E0044D43E /* HomePageTableViewCell.xib */,
+				154B252F241BC4360044D43E /* HomePageViewModel.swift */,
 			);
 			path = HomePage;
 			sourceTree = "<group>";
@@ -269,6 +281,7 @@
 				15A90D7B2413D3D800AAFD7E /* LaunchScreen.storyboard in Resources */,
 				15A90D782413D3D800AAFD7E /* Assets.xcassets in Resources */,
 				15A90D732413D3D500AAFD7E /* Main.storyboard in Resources */,
+				154B252E241AC58E0044D43E /* HomePageTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,10 +311,13 @@
 				15A90DAC241580BF00AAFD7E /* HomePageViewController.swift in Sources */,
 				15A90D762413D3D500AAFD7E /* WeatherApp.xcdatamodeld in Sources */,
 				15A90DA02413E38900AAFD7E /* APIService.swift in Sources */,
+				154B2533241BF7960044D43E /* APIError.swift in Sources */,
+				154B252D241AC58E0044D43E /* HomePageTableViewCell.swift in Sources */,
 				15A90DA22413E53500AAFD7E /* APICalls.swift in Sources */,
 				15A90D702413D3D500AAFD7E /* ViewController.swift in Sources */,
 				15A90D6C2413D3D500AAFD7E /* AppDelegate.swift in Sources */,
 				15A90D6E2413D3D500AAFD7E /* SceneDelegate.swift in Sources */,
+				154B2530241BC4360044D43E /* HomePageViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
