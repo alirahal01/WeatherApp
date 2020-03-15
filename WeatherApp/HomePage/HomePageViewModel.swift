@@ -17,15 +17,15 @@ class HomePageViewModel: NSObject {
     var WeeklyForecastResponse: (WeeklyForecastResponse?, APIError?)!
     
     
-    func fetchCurrentWeather(completionHandler: @escaping (Bool) -> ()) {
-        APICalls.fetchWeather(location: "Beirut") { (response, error) in
+    func fetchCurrentWeather(location: String, completionHandler: @escaping (Bool) -> ()) {
+        APICalls.fetchWeather(location: location) { (response, error) in
             self.currentWeatherRespose = (response,error)
             completionHandler(true)
         }
     }
     
-    func fetchForecastedWeather(completionHandler: @escaping (Bool) -> ()) {
-        APICalls.fetchForecast(location: "Beirut") { (response, error) in
+    func fetchForecastedWeather(location: String, completionHandler: @escaping (Bool) -> ()) {
+        APICalls.fetchForecast(location: location) { (response, error) in
             self.WeeklyForecastResponse = (response,error)
             completionHandler(true)
         }

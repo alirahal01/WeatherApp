@@ -11,6 +11,7 @@
 		154B252E241AC58E0044D43E /* HomePageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 154B252C241AC58E0044D43E /* HomePageTableViewCell.xib */; };
 		154B2530241BC4360044D43E /* HomePageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154B252F241BC4360044D43E /* HomePageViewModel.swift */; };
 		154B2533241BF7960044D43E /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154B2532241BF7960044D43E /* APIError.swift */; };
+		154B2537241E8A390044D43E /* HomePageVC_Extension_CurrentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154B2536241E8A390044D43E /* HomePageVC_Extension_CurrentLocation.swift */; };
 		15A90D6C2413D3D500AAFD7E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A90D6B2413D3D500AAFD7E /* AppDelegate.swift */; };
 		15A90D6E2413D3D500AAFD7E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A90D6D2413D3D500AAFD7E /* SceneDelegate.swift */; };
 		15A90D702413D3D500AAFD7E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A90D6F2413D3D500AAFD7E /* ViewController.swift */; };
@@ -49,6 +50,7 @@
 		154B252C241AC58E0044D43E /* HomePageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomePageTableViewCell.xib; sourceTree = "<group>"; };
 		154B252F241BC4360044D43E /* HomePageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageViewModel.swift; sourceTree = "<group>"; };
 		154B2532241BF7960044D43E /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		154B2536241E8A390044D43E /* HomePageVC_Extension_CurrentLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageVC_Extension_CurrentLocation.swift; sourceTree = "<group>"; };
 		15A90D682413D3D500AAFD7E /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15A90D6B2413D3D500AAFD7E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		15A90D6D2413D3D500AAFD7E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				154B252B241AC58E0044D43E /* HomePageTableViewCell.swift */,
 				154B252C241AC58E0044D43E /* HomePageTableViewCell.xib */,
 				154B252F241BC4360044D43E /* HomePageViewModel.swift */,
+				154B2536241E8A390044D43E /* HomePageVC_Extension_CurrentLocation.swift */,
 			);
 			path = HomePage;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 				15A90DA22413E53500AAFD7E /* APICalls.swift in Sources */,
 				15A90D702413D3D500AAFD7E /* ViewController.swift in Sources */,
 				15A90D6C2413D3D500AAFD7E /* AppDelegate.swift in Sources */,
+				154B2537241E8A390044D43E /* HomePageVC_Extension_CurrentLocation.swift in Sources */,
 				15A90D6E2413D3D500AAFD7E /* SceneDelegate.swift in Sources */,
 				154B2530241BC4360044D43E /* HomePageViewModel.swift in Sources */,
 			);

@@ -4,6 +4,12 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>&quot;Allow Weather app to access your current location while using the app&quot;</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>&quot;Allow Weather app to access your current location while using the app&quot;</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>&quot;Allow Weather app to access your current location while using the app&quot;</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

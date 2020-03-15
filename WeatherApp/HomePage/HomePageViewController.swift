@@ -7,7 +7,12 @@
 //
 
 import UIKit
+import CoreLocation
 
+struct Location {
+    var city: String
+    var country: String
+}
 extension Date {
     
     var dayofTheWeek: String {
@@ -21,7 +26,7 @@ extension Date {
     }
 }
 
-class HomePageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class HomePageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let t = self.result2 {
@@ -43,6 +48,15 @@ class HomePageViewController: UIViewController, UITableViewDelegate, UITableView
     var result2 : WeeklyForecastResponse!
     var viewModel: HomePageViewModel!
     
+    
+    let locationManager = CLLocationManager()
+    var location: CLLocation?
+    let geocoder = CLGeocoder()
+    var currentLocation: Location! {
+        didSet {
+            fetchData()
+        }
+    }
     fileprivate func setupTableView() {
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -55,13 +69,22 @@ class HomePageViewController: UIViewController, UITableViewDelegate, UITableView
         self.cityName.text = ""
         self.weatherValue.text = ""
     }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.resetValues()
-        self.setupTableView()
-//        self.activityIndicator.transform = CGAffineTransform(scaleX: 3, y: 3)
-        self.viewModel = HomePageViewModel()
-        viewModel.fetchCurrentWeather { (isDone) in
+    
+    func setupLocationManager() {
+        
+        let authStatus = CLLocationManager.authorizationStatus()
+         if authStatus == .notDetermined {
+             locationManager.requestWhenInUseAuthorization()
+         }
+
+         if authStatus == .denied || authStatus == .restricted {
+             //add alert
+         }
+        startLocationManager()
+    }
+    
+    func fetchData() {
+        viewModel.fetchCurrentWeather(location: self.currentLocation.country) { (isDone) in
             if let error1 = self.viewModel.currentWeatherRespose.1 {
                 
                 
@@ -72,7 +95,7 @@ class HomePageViewController: UIViewController, UITableViewDelegate, UITableView
             
         }
         
-        viewModel.fetchForecastedWeather() { (isDone) in
+        viewModel.fetchForecastedWeather(location: self.currentLocation.country) { (isDone) in
             DispatchQueue.main.async {
                 self.activityIndicator.stopAnimating()
                 self.activityIndicator.isHidden = true
@@ -88,6 +111,15 @@ class HomePageViewController: UIViewController, UITableViewDelegate, UITableView
                 
             }
         }
+    }
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        self.setupLocationManager()
+        self.resetValues()
+        self.setupTableView()
+//        self.activityIndicator.transform = CGAffineTransform(scaleX: 3, y: 3)
+        self.viewModel = HomePageViewModel()
         
     }
     
@@ -96,11 +128,11 @@ class HomePageViewController: UIViewController, UITableViewDelegate, UITableView
     }
     func setupValues() {
         DispatchQueue.main.async {
-            self.cityName.text = "Beirut"
+            self.cityName.text = self.currentLocation.city
             let df = DateFormatter()
             df.dateFormat = "EEEE, MMM dd"
             let now = df.string(from: Date())
-            self.weatherType.text = "Humidity" + "\(self.result1.main.humidity)"
+            self.weatherType.text = "Humidity " + "\(self.result1.main.humidity)"
             self.dateValue.text = now
             self.weatherValue.text = "\(Int(self.result1.main.temperature))"
         }
