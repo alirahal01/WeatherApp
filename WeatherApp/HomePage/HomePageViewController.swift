@@ -13,24 +13,12 @@ struct Location {
     var city: String
     var country: String
 }
-extension Date {
-    
-    var dayofTheWeek: String {
-        let dayNumber = Calendar.current.component(.weekday, from: self)
-        // day number starts from 1 but array count from 0
-        return daysOfTheWeek[dayNumber - 1]
-    }
-    
-    private var daysOfTheWeek: [String] {
-        return  ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-    }
-}
 
-class HomePageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class HomePageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let t = self.result2 {
-            return t.list.count
+        if let unWrappedDataSource = self.result2 {
+            return unWrappedDataSource.list.count
         } else {
             return 0
         }
@@ -42,6 +30,7 @@ class HomePageViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var cityName: UILabel!
     @IBOutlet weak var weatherValue: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var tableView: UITableView!
     var result1 : CurrentWeatherForecastResponse!
@@ -113,7 +102,10 @@ class HomePageViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     override func viewDidLoad() {
-        
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        }
+        self.searchBar.delegate = self
         super.viewDidLoad()
         self.setupLocationManager()
         self.resetValues()

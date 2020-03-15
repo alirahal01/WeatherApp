@@ -31,9 +31,7 @@ extension HomePageViewController: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        // print the error to see what went wrong
         print("didFailwithError\(error)")
-        // stop location manager if failed
         stopLocationManager()
     }
     
@@ -43,11 +41,28 @@ extension HomePageViewController: CLLocationManagerDelegate {
     }
     
     func startLocationManager() {
-        // always good habit to check if locationServicesEnabled
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
             locationManager.startUpdatingLocation()
         }
     }
+}
+
+extension HomePageViewController: SearchDelegate {
+    func locationSelected(country: String) {
+        self.currentLocation.country = country
+        fetchData()
+    }
+}
+
+extension HomePageViewController {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let searchVC = storyBoard.instantiateViewController(withIdentifier: "Search") as! SearchViewController
+        searchVC.delegate = self
+        self.searchBar.endEditing(true)
+        self.navigationController?.pushViewController(searchVC, animated: false)
+    }
+    
 }
