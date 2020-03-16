@@ -113,7 +113,7 @@ class HomePageViewController: UIViewController, UITableViewDelegate, UITableView
         self.setupLocationManager()
         self.resetValues()
         self.setupTableView()
-        self.activityIndicator.transform = CGAffineTransform(scaleX: 3, y: 3)
+        self.activityIndicator.transform = CGAffineTransform(scaleX: 2.5, y: 2.5)
         self.viewModel = HomePageViewModel()
         
     }

@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import CoreLocation
 
+//detecting current location
 extension HomePageViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
@@ -49,6 +50,7 @@ extension HomePageViewController: CLLocationManagerDelegate {
     }
 }
 
+//saving the returned value and calling fetch data
 extension HomePageViewController: SearchDelegate {
     func locationSelected(country: String) {
         self.currentLocation.country = country
@@ -56,6 +58,7 @@ extension HomePageViewController: SearchDelegate {
     }
 }
 
+//once the user presses on the search bar SearchViewController  will be pushed
 extension HomePageViewController {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)

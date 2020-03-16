@@ -8,16 +8,18 @@
 import UIKit
 import GooglePlaces
 
+//once a location is selected we use delegation to return back the result to HomePageViewController
 protocol SearchDelegate {
     func locationSelected(country: String)
 }
 
 class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
     
+    //MARK: Outlets
     @IBOutlet weak var tableView: UITableView!
     
     
-    //Properties
+    //MARK: Properties
     var placeIDArray = [String]()
     var resultsArray = [String]()
     var primaryAddressArray = [String]()
@@ -25,12 +27,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     var searhPlacesName = [String]()
     let googleAPIKey = "AIzaSyB-cvld5QmXOkDO-ogOc9Ceml_KR0yfgHY"
     var delegate: SearchDelegate?
-    
-    
-    //search Controller implementations
     let searchController = UISearchController(searchResultsController: nil)
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,7 +86,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             searchBar.text = ""
         }else{
             placeAutocomplete(text_input: searchText)
-            
         }
     }
     
@@ -114,23 +110,19 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let address = self.resultsArray[indexPath.row]
+        // use delegation to return the address selected in order to fetch the weather for this specific address
         self.delegate?.locationSelected(country: address)
         self.navigationController?.popViewController(animated: true)
     }
     
-    //function for autocomplete
     func placeAutocomplete(text_input: String) {
+        
         let placesClient = GMSPlacesClient()
-        
-        
         let token = GMSAutocompleteSessionToken.init()
-        
-        // Create a type filter.
         let filter = GMSAutocompleteFilter()
         filter.type = .city
-        
-        
         placesClient.findAutocompletePredictions(fromQuery: text_input, filter: filter, sessionToken: token) { (results, error) in
+            
             self.placeIDArray.removeAll()
             self.resultsArray.removeAll()
             self.primaryAddressArray.removeAll()
@@ -151,7 +143,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
             self.tableView.reloadData()
         }
     }
-    
     
 }
 
