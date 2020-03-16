@@ -141,7 +141,7 @@ class HomePageViewController: UIViewController, UITableViewDelegate, UITableView
         cell.weather.text = "\(Int(item.main.temp))"
         cell.weatherType.text = item.weather.first?.weatherDescription
         let df = DateFormatter()
-        df.dateFormat = "EEEE, MMM dd"
+        df.dateFormat = "EEEE,hh aa"
         cell.day.text = df.string(from: item.date)
         return cell
     }
