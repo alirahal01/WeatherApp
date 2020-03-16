@@ -106,21 +106,24 @@ class HomePageViewController: UIViewController, UITableViewDelegate, UITableView
             overrideUserInterfaceStyle = .light
         }
         self.searchBar.delegate = self
+        searchBar.barTintColor = .white
+        searchBar.backgroundColor = .white
+        searchBar.isTranslucent = false
         super.viewDidLoad()
         self.setupLocationManager()
         self.resetValues()
         self.setupTableView()
-//        self.activityIndicator.transform = CGAffineTransform(scaleX: 3, y: 3)
+        self.activityIndicator.transform = CGAffineTransform(scaleX: 3, y: 3)
         self.viewModel = HomePageViewModel()
         
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150
+        return 50
     }
     func setupValues() {
         DispatchQueue.main.async {
-            self.cityName.text = self.currentLocation.city
+            self.cityName.text = self.currentLocation.country
             let df = DateFormatter()
             df.dateFormat = "EEEE, MMM dd"
             let now = df.string(from: Date())

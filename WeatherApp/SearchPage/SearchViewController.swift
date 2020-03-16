@@ -113,21 +113,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == self.resultsArray.count - 1 {
-            //            self.delegate?.locate(coordinate: nil, andAddress: nil, shouldSelectLocation: true)
-        } else {
-            let address = self.resultsArray[indexPath.row]
-            //hack
-            guard let country = address.components(separatedBy: ",").last else { return }
-            self.delegate?.locationSelected(country: country)
-            self.navigationController?.popViewController(animated: true)
-            //            let dataProvider = GoogleDataProvider()
-            //            dataProvider.fetchGooglePlaceFor(address: address) { place in
-            //                guard let test = place else { return }
-            //                self.delegate?.locate(coordinate: test.coordinate, andAddress: test.address, shouldSelectLocation: false)
-            //            }
-        }
-        
+        let address = self.resultsArray[indexPath.row]
+        self.delegate?.locationSelected(country: address)
         self.navigationController?.popViewController(animated: true)
     }
     
